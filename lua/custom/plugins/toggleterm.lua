@@ -21,13 +21,20 @@ require("toggleterm").setup({
   },
 })
 
--- 3. Setup Persistent Float Window Mapping (Ctrl + t)
+-- 3. Setup Two Persistent Float Window Mappings (Ctrl + t and Ctrl + a)
 local Terminal = require('toggleterm.terminal').Terminal
-local float_term = Terminal:new({ direction = "float", hidden = true })
 
-function _G._float_term_toggle()
-  float_term:toggle()
+-- Create Terminal 1 with ID 1
+local float_term_1 = Terminal:new({ id = 1, direction = "float", hidden = true })
+function _G._float_term_1_toggle()
+  float_term_1:toggle()
 end
 
--- Keymaps: Binds <C-t> in normal (n) and terminal (t) modes to toggle cleanly
-vim.keymap.set({'n', 't'}, '<C-t>', '<cmd>lua _float_term_toggle()<CR>', { silent = true, desc = "Toggle Floating Terminal" })
+-- Create Terminal 2 with ID 2
+local float_term_2 = Terminal:new({ id = 2, direction = "float", hidden = true })
+function _G._float_term_2_toggle()
+  float_term_2:toggle()
+end
+
+vim.keymap.set({'n', 't'}, '<C-t>', '<cmd>lua _float_term_1_toggle()<CR>', { silent = true, desc = "Toggle Float Term 1" })
+vim.keymap.set({'n', 't'}, '<M-t>', '<cmd>lua _float_term_2_toggle()<CR>', { silent = true, desc = "Toggle Float Term 2" })

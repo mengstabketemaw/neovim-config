@@ -22,5 +22,10 @@ require('neo-tree').setup {
         ['\\'] = 'close_window',
       },
     },
+    filtered_items = {
+      visible = true, -- Ensures hidden items are visible
+      hide_dotfiles = false, -- Disables hiding dotfiles
+      hide_gitignored = false, -- Disables hiding files in .gitignore
+    },
   },
 }
