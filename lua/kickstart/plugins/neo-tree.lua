@@ -1,31 +1,30 @@
--- Neo-tree is a Neovim plugin to browse the file system
--- https://github.com/nvim-neo-tree/neo-tree.nvim
+-- Nvim-tree is a Neovim plugin to browse the file system
+-- https://github.com/nvim-tree/nvim-tree.lua
 
 local plugins = {
-  { src = 'https://github.com/nvim-neo-tree/neo-tree.nvim', version = vim.version.range '*' },
-  'https://github.com/nvim-lua/plenary.nvim',
-  'https://github.com/MunifTanjim/nui.nvim',
+  { src = 'https://github.com/nvim-tree/nvim-tree.lua', version = vim.version.range '*' },
 }
 
 if vim.g.have_nerd_font then
-  table.insert(plugins, 'https://github.com/nvim-tree/nvim-web-devicons') -- not strictly required, but recommended
+  table.insert(plugins, 'https://github.com/nvim-tree/nvim-web-devicons')
 end
 
 vim.pack.add(plugins)
 
-vim.keymap.set('n', '\\', '<Cmd>Neotree reveal<CR>', { desc = 'NeoTree reveal', silent = true })
+vim.keymap.set('n', '\\', '<Cmd>NvimTreeToggle<CR>', { desc = 'NvimTree toggle', silent = true })
 
-require('neo-tree').setup {
-  filesystem = {
-    window = {
-      mappings = {
-        ['\\'] = 'close_window',
-      },
-    },
-    filtered_items = {
-      visible = true, -- Ensures hidden items are visible
-      hide_dotfiles = false, -- Disables hiding dotfiles
-      hide_gitignored = false, -- Disables hiding files in .gitignore
+require('nvim-tree').setup {
+  disable_netrw = true,
+  filters = {
+    dotfiles = false,
+    git_ignored = false,
+  },
+  view = {
+    width = 30,
+  },
+  actions = {
+    open_file = {
+      quit_on_open = true,
     },
   },
 }
