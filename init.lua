@@ -32,6 +32,15 @@ do
   --  Remove this option if you want your OS clipboard to remain independent.
   vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 
+  -- Put the cursor at the last place
+  vim.api.nvim_create_autocmd('BufReadPost', {
+    pattern = '*',
+    callback = function()
+      local last_pos = vim.fn.line '\'"'
+      if last_pos > 1 and last_pos <= vim.fn.line '$' then vim.cmd 'normal! g\'"' end
+    end,
+  })
+
   -- Enable break indent
   vim.o.breakindent = true
 
@@ -302,8 +311,8 @@ do
     transparent = true,
     styles = {
       comments = { italic = false }, -- Disable italics in comments
-      sidebars = "transparent",
-      floats = "transparent"
+      sidebars = 'transparent',
+      floats = 'transparent',
     },
   }
 

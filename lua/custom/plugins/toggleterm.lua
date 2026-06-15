@@ -7,7 +7,7 @@ require("toggleterm").setup({
   size = 20,
   open_mapping = [[<c-\>]], -- Press Ctrl + \ to toggle universally
   hide_numbers = false,
-  shade_terminals = true,
+  shade_terminals = false,
   start_in_insert = true,
   insert_mappings = true,
   terminal_mappings = true,
@@ -17,7 +17,18 @@ require("toggleterm").setup({
   shell = vim.o.shell,
   float_opts = {
     border = "curved",     -- Elegant rounded borders
-    winblend = 3,
+    winblend = 0,
+  },
+    -- CRITICAL: Force solid background groups inside the float
+  highlights = {
+    NormalFloat = {
+      link = "NormalSB" -- Links the terminal float to TokyoNight's solid sidebar color
+    },
+    FloatBorder = {
+      -- Keeps the hover window border solid as well
+      bg = "#1a1b26",  -- Replace with your preferred dark solid background hex color
+      fg = "#3b4261",  -- Border line color
+    },
   },
 })
 
