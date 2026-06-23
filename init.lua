@@ -81,7 +81,7 @@ do
   vim.o.cursorline = true
 
   -- Minimal number of screen lines to keep above and below the cursor.
-  vim.o.scrolloff = 10
+  vim.o.scrolloff = 1000
 
   -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
   -- instead raise a dialog asking if you wish to save the current file(s)
@@ -429,6 +429,18 @@ do
   vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
   vim.keymap.set({ 'n', 'v' }, '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
   vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+  vim.keymap.set(
+    'n',
+    '<leader>SG',
+    function() builtin.live_grep { additional_args = { '--no-ignore', '--hidden' } } end,
+    { desc = '[S]earch [G]rep (incl. gitignored + hidden)' }
+  )
+  vim.keymap.set(
+    'n',
+    '<leader>SF',
+    function() builtin.find_files { no_ignore = true, hidden = true } end,
+    { desc = '[S]earch [F]iles (incl. gitignored + hidden)' }
+  )
   vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
   vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
   vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
